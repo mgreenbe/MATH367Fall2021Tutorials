@@ -1,0 +1,135 @@
+\documentclass[12pt]{exam}
+
+\usepackage{amsmath, amssymb, fullpage}
+\begin{document}
+
+\title{Math 367 -- Tutorial \#1}
+\author{Matthew Greenberg and Keira Gunn}
+\date{September 14-16, 2021}
+\maketitle
+
+\begin{questions}
+    \setlength\itemsep{1em}
+    \question Evaluate $z_x$ and $z_y$, where:
+    \begin{parts}
+        \part $z=xe^{x^2+y^2}$
+        \begin{solution}
+            \begin{align*}
+                z_x &= e^{x^2+y^2} + xe^{x^2+y^2}(2x),\\
+                z_y &= xe^{x^2+y^2}(2y)
+            \end{align*}
+        \end{solution}
+
+        \part $z=\cos(e^{x^2y^3})$
+        \begin{solution}
+            \begin{align*}
+                z_x &= -\sin(e^{x^2y^3})e^{x^2y^3}(2xy^3)\\
+                z_y &= -\sin(e^{x^2y^3})e^{x^2y^3}(3x^2y^2)
+            \end{align*}
+        \end{solution}
+
+        \part $xy^2 + yz^2 + xyz = 1$
+        \begin{solution}
+            Differentiate both sides with respect to $x$,
+            remembering that $z$ is a functino of $x$:
+            \[
+                y^2 + 2yzz_x + yz + xyz_x = 0
+            \]
+            Now solve for $z_x$:
+            \[
+                z_x = -\frac{y^2}{2yz + xy}
+            \]
+            Differentiate both sides with respect to $y$,
+            remembering that $z$ is a functino of $y$:
+            \[
+                2xy + z^2 + 2yzz_y + xz + xyz_y = 0
+            \]
+            Now solve for $z_y$:
+            \[
+                z_t = -\frac{2xy + z^2 + xz}{2yz + xy}
+            \]
+        \end{solution}
+
+        \part $z=x^y$
+        \begin{solution}
+            To find $z_x$, just use the power rule:
+            \[
+                z_x = yx^{y-1}
+            \]
+
+            To find $z_y$, take logarithms of both sides of $z=x^y$:
+            \[
+                \ln z = y\ln x
+            \]
+            Differentiate both with respect to $y$, remebering that $z$ is a functino of $y$:
+            \[
+                \frac1z z_y = \ln x
+            \]
+            Solve for $z_y$:
+            \[
+                z_y = z\ln x = x^y\ln x
+            \]
+            
+            Alternatively, you could just look up the derivative of $f(x)=a^x$. The above calculation is just a derivation of that formula.
+        \end{solution}
+    \end{parts}
+
+    \question Let
+    \[
+        f(\mathbf{x}) = \|\mathbf{x}\|^r,
+        \quad \mathbf{x}\in\mathbb{R}^n.
+    \]
+    Show that
+    \[
+        \nabla f(\mathbf{x}) = r\|\mathbf{x}\|^{r-2}\mathbf{x}.
+    \]
+
+    \begin{solution}
+        We have:
+        \begin{align*}
+            f_{x_i}(\mathbf{x}) &= \frac{\partial}{\partial x_i}
+            \left(x_1^2+\cdots x_n^2\right)^{r/2}\\
+            &= \frac{r}{2}\left(x_1^2+\cdots x_n^2\right)^{(r-2)/2}2x_i\\
+            &= r\|x\|^{r-2}x_i
+            \intertext{Therefore,}
+            \nabla f(\mathbf{x}) &= (r\|x\|^{r-2}x_1,\ldots,r\|x\|^{r-2}x_n)\\
+            &= r\|x\|^{r-2}(x_1,\ldots,x_n)\\
+            &= r\|x\|^{r-2}\mathbf{x}.
+        \end{align*}
+        
+    \end{solution}
+
+    \question
+    Let $y=f(\mathbf{x})$, $\mathbf{x}\in\mathbb{R}^n$.
+    Show that
+    \[
+        \nabla y^r = ry^{r-1}\nabla y.
+    \]
+
+    \begin{solution}
+        In class, we noted the following form of the chain rule,
+        where $g$ is a real-valued function of a single variable:
+        \[
+            \nabla g(f(\mathbf{x})) = g'(f(\mathbf{x}))\nabla f(\mathbf{x})
+        \]
+        If $g(t)=t^r$, then $g'(t)=rt^{r-1}$ and
+        \[
+            \nabla y^r = \nabla g(y) = g'(y)\nabla y  = r y^{r-1}\nabla y.
+        \]
+
+        Alternatively, you can work from first principles:
+        \begin{align*}
+            \frac{\partial}{\partial x_i}f(\mathbf{x})^r
+            &= r f(\mathbf{x})^{r-1} f_{x_i}(\mathbf{x})
+            \intertext{Therefore,}
+            \nabla f(\mathbf{x})^r &= (r f(\mathbf{x})^{r-1} f_{x_1}(\mathbf{x}),\ldots,r f(\mathbf{x})^{r-1} f_{x_n}(\mathbf{x}))\\
+            &= rf(x)^{r-1}(f_{x_1}(\mathbf{x}),\ldots,f_{x_n}(\mathbf{x}))\\
+            &= rf(x)^{r-1}\nabla f(\mathbf{x})
+            \intertext{Equivalently,}
+            \nabla y^r &= r y^{r-1} \nabla y.
+        \end{align*}
+    \end{solution}
+\end{questions}
+
+
+\end{document}
