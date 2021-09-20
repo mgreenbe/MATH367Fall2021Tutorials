@@ -1,0 +1,165 @@
+\documentclass[answers]{exam}
+
+\usepackage{amsmath, amssymb}
+\begin{document}
+
+\title{Math 367 -- Tutorial \#2}
+\author{Matthew Greenberg and Keira Gunn}
+\date{September 21-23, 2021}
+\maketitle
+
+\begin{questions}
+    \question Find equations for the tangent plane and the normal line...
+    \begin{parts}
+        \part ...to $z=e^{2x^2+3y}$ at $(x,y)=(3,-6)$;
+
+        \begin{solution}
+            \begin{align*}
+                z(3, -6) &= 1\\
+                z_x &= 4xe^{2x^2 + 3y}\\
+                z_x(3,-6) &= 12\\
+                z_y &= 3e^{2x^2+3y}\\
+                z_y(3,-6) &= 3
+            \end{align*}
+            The tangent plane to $z=e^{2x^2 + 3y}$ at $(x,y)=(3,-6)$
+            has equation
+            \begin{align*}
+                L(x,y) &= z(3,-6) + z_x(3,-6)(x-3) + z_y(3,-6)(y-(-6))\\
+                &= 1 + 12(x-3) + 3(y+6).
+            \end{align*}
+            The normal line to $z=e^{2x^2 + 3y}$ at $(x,y)=(3,-6)$
+            passes through $(3,-6,1)$ and has direction vector
+            \[
+                (-\nabla z, 1) = (-12, -3, 1).
+            \]
+            Hence, it has parametric equations
+            \[
+                (x,y,z) = (3,-6,1) + t(-12, -3, 1).
+            \]
+        \end{solution}
+
+        \part ...to $y=\sqrt{x_1^2 + 3x_2^2 + x_3^2}$ at
+        $\mathbf{x}=(6, 2, 1)$.
+
+        \begin{solution}
+            \begin{align*}
+                y(6,2,1) &= 7\\
+                y_{x_1} &= \frac{2x_1}{y}\\
+                y_{x_1}(6,2,1) &= \frac{12}{7}\\
+                y_{x_2} &= \frac{6x_2}{y}\\
+                y_{x_2}(6,2,1) &= \frac{12}{7}\\
+                y_{x_3} &= \frac{2x_3}{y}\\
+                y_{x_3}(6,2,1) &= \frac{2}{7}\\
+            \end{align*}
+            The tangent plane to to $y=\sqrt{x_1^2 + 3x_2^2 + x_3^2}$
+            at $\mathbf{x}=(6, 2, 1)$ has equation
+            \begin{align*}
+                L(\mathbf{x}) &= y(6,2,1) + y_{x_1}(6,2,1)(x_1-6)
+                + y_{x_2}(6,2,1)(x_2-2) + y_{x_3}(6,2,1)(x_3-1)\\
+                &= 7 + \frac{12}7(x_1-6) + \frac{12}7(x_2-2) + \frac27(x_3-1)
+            \end{align*}
+
+            The normal line to $y=\sqrt{x_1^2 + 3x_2^2 + x_3^2}$
+            at $\mathbf{x}=(6, 2, 1)$
+            passes through $(6,2,1,7)$ and has direction vector
+            \[
+                (-\nabla y, 1) = \left(-\frac{12}7,-\frac{12}{7},-\frac27,1\right).
+            \]
+            Hence, it has parametric equations
+            \[
+                \mathbf{x} = (6,2,1,7) + t\left(-\frac{12}7,-\frac{12}{7},-\frac27,1\right).
+            \]
+        \end{solution}
+    \end{parts}
+
+    \question Use linear approximation to estimate...
+    \begin{parts}
+        \part $f(3.05, -6.1)$, where $f(x,y)=e^{2x^2+3y}$;
+        \begin{solution}
+            \begin{align*}
+                f(3.05, -6.1)&\approx L(3.05, -6.1)\\
+                &= 1 + 12(3.1-3.05) + 3(-6.1+6)\\
+                &= 1.3
+            \end{align*}
+            \[
+                \left|\frac{f(\mathbf{x})-L(\mathbf{x})}{f(\mathbf{x})}\right|\times 100\%
+                \approx \frac{1.3566 - 1.3}{1.3566}\times 100\% \approx 4\%
+            \]
+        \end{solution}
+        \part $f(6.1, 1.9, 0.9)$, where $f(\mathbf{x})=\sqrt{x_1^2 + 3x_2^2 + x_3^2}$.
+        \begin{solution}
+            \begin{align*}
+                f(6.1, 1.9, 0.9)&\approx L(6.1, 1.9, 0.9)\\
+                &= 7 + \frac{12}7(6.1-6) + \frac{12}7(1.9-2) + \frac27(0.9-1)\\
+                &\approx 6.9714
+            \end{align*}
+            \[
+                \left|\frac{f(\mathbf{x})-L(\mathbf{x})}{f(\mathbf{x})}\right|\times 100\%
+                \approx \frac{6.9892 - 6.9714}{6.9892}\times 100\% \approx 0.25\%
+            \]
+        \end{solution}
+    \end{parts}
+    What is the relative error percentage in your approximation?
+    \[
+        \text{relative error percentage} = \left|\frac{f(\mathbf{x})-L(\mathbf{x})}{f(\mathbf{x})}\right|\times 100\%
+    \]
+    Note that you computed the relevant linear approximations (tangent planes) in problem 1.
+
+    \question
+    Without doing any calculations, find an equations of the normal line and tangent plane
+    to the sphere $S_r$ of radius $r$,
+    \[
+        S:x^2+y^2+z^2=r,
+    \]
+    at an arbitrary point $(a,b,c)\in S$.
+
+    \begin{solution}
+        By the geometry of $S$, the vector $(a,b,c)$ is normal to $S$ at $(a,b,c)$.
+        Therefore, the normal line $N$ to $S$ at $(a,b,c)$ has equation
+        \[
+            (x,y,z) = (a,b,c) + t(a,b,c)
+        \]
+        Note that $N$ passes through $(0,0,0)$ -- take $t=-1$. Therefore,
+        \[
+            (x,y,z) = t(a,b,c)
+        \]
+        is also an equation of $N$.
+
+        The tangent plane to $S$ at $(a,b,c)$ is the plane through $(a,b,c)$ normal to $(a,b,c)$. As such, it has equation
+        \[
+            a(x-a) + b(y-b) + c(z-c) = 0.
+        \]
+    \end{solution}
+
+    \question The surface $S$ defined by
+    \[
+        -x^2 - y^2 + z^2 = 1
+    \]
+    is a two-sheeted hyperboloid.
+    Find equations of the tangent planes to $S$
+    at the points $(2,2,\pm 3)$.
+
+    \begin{solution}
+        We compute $z_x$ and $z_y$ by differentiating implicitly:
+        \begin{align*}
+            -2x + 2zz_x &= 0\\
+            z_x &= \frac xz\\
+            z_x(2,2,\pm 3) &= \pm\frac2{3}\\
+            -yx + 2zz_y &= 0\\
+            z_y &= \frac yz\\
+            z_y(2,2,\pm 3) &= \pm\frac2{3}
+        \end{align*}
+        
+        The tangent plane to $S$ at $(2,2,3)$ is
+        \begin{align*}
+            z = 3 + \frac23(x-2) + \frac23(y-2).
+        \end{align*}
+        The tangent plane to $S$ at $(2,2,-3)$ is
+        \begin{align*}
+            z = -3 - \frac23(x-2) - \frac23(y-2).
+        \end{align*}
+    \end{solution}
+\end{questions}
+
+
+\end{document}
