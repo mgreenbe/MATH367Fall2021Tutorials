@@ -1,0 +1,367 @@
+\documentclass[answers]{exam}
+
+\usepackage{amsmath, amssymb}
+
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\vf}{\mathbf{f}}
+\newcommand{\vg}{\mathbf{g}}
+\newcommand{\vh}{\mathbf{h}}
+\newcommand{\vu}{\mathbf{u}}
+\newcommand{\vx}{\mathbf{x}}
+\newcommand{\vzero}{\mathbf{0}}
+\begin{document}
+
+\title{Math 367 -- Tutorial \#4}
+\author{Matthew Greenberg and Keira Gunn}
+\date{October 5-7, 2021}
+\maketitle
+
+\begin{questions}
+    \setlength\itemsep{1em}
+    \question Define
+    \[
+        \vf:\RR^2\to\RR^2,\qquad \vf(x,y)=\begin{pmatrix}
+            x\sin(xy)\\x\cos(xy)
+        \end{pmatrix}
+    \]
+    and
+    \[
+        \vg:\RR^2\to\RR^2,\qquad \vg(u,v)=\begin{pmatrix}
+            u^3 + 3u^2v - v^3 + u^2 - v^2\\
+            u^3 + v^3 - 2u^2
+        \end{pmatrix}
+    \]
+    Compute $D(\vg\circ\vf)(1,0)$.
+
+    \begin{solution}
+        \begin{align*}
+            \vf(1,0) &=\begin{pmatrix}
+                0\\1
+            \end{pmatrix}\\
+            D\vf &= \begin{pmatrix}
+                \sin(xy) + xy\cos(xy) & x^2\cos(xy)\\
+                \cos(xy) - xy\sin(xy) & -x^2\sin(xy)\\
+            \end{pmatrix}\\
+            D\vf(1,0) &= \begin{pmatrix}
+                0&0\\1&0
+            \end{pmatrix}
+        \end{align*}
+
+        \begin{align*}
+            D\vg &= \begin{pmatrix}
+                3u^2 + 6uv + 2u&3u^2-3v^2-3v\\
+                3u^2 - 4u&3v^2
+            \end{pmatrix}\\
+            D\vg(\vf(1,0)) &= D\vg(0,1)\\
+            &=\begin{pmatrix}
+                0&-6\\-4&3
+            \end{pmatrix}
+        \end{align*}
+
+        \begin{align*}
+            D(\vf\circ\vg)(1,0) &= D\vg(\vf(1,0))D\vf(1,0)\\
+            &=\begin{pmatrix}
+                0&-6\\-4&3
+            \end{pmatrix}\begin{pmatrix}
+                0&0\\1&0
+            \end{pmatrix}\\
+            &= \begin{pmatrix}
+                -6&0\\3&0
+            \end{pmatrix}
+        \end{align*}
+    \end{solution}
+
+    \question
+    The system of equations
+    \begin{align*}
+        w^2 + x^2 + y^2 + z^2 &= 4\\
+        w + 2x + 3y + 4z &= 10
+    \end{align*}
+
+    Defines $y$ and $z$ as functions of $w$ and $x$ in a neighborhood of $(1,1,1,1)$.
+    Find the partial derivatives of $y$ and $z$ with respect to $x$ and $y$ at $(1,1,1,1)$.
+
+    \begin{solution}
+        Differentiate the system with respect to $w$, holding $x$ fixed:
+        \begin{align*}
+            2w + 2yy_w + 2zz_w &= 0\\
+            1 + 3y_w + 4z_w &= 0
+        \end{align*}
+        Evaluating at $(1,1,1,1)$ and rearranging slightly, this becomes
+        \begin{align*}
+            2y_w + 2z_w &= -2\\
+            3y_w + 4z_w &= -1
+        \end{align*}
+        In matrix form:
+        \[
+            \begin{pmatrix}
+                2&2\\3&4
+            \end{pmatrix}\begin{pmatrix}
+                y_w\\z_w
+            \end{pmatrix}= -\begin{pmatrix}
+                2\\1
+            \end{pmatrix}\tag{\dag}
+        \]
+        At this point, you could solve for $y_w$ and $z_w$, but we'll hold off.
+
+        Now differentiate the system with respect to $x$, holding $w$ fixed:
+        \begin{align*}
+            2x + 2yy_x + 2zz_x &= 0\\
+            2 + 3y_x + 4z_x &= 0
+        \end{align*}
+        Evaluating at $(1,1,1,1)$ and rearranging slightly, this becomes
+        \begin{align*}
+            2y_x + 2z_x &= -2\\
+            3y_x + 4z_x &= -2
+        \end{align*}
+        In matrix form:
+        \[
+            \begin{pmatrix}
+                2&2\\3&4
+            \end{pmatrix}\begin{pmatrix}
+                y_x\\z_x
+            \end{pmatrix}= -\begin{pmatrix}
+                2\\2
+            \end{pmatrix}\tag{\ddag}
+        \]
+
+        Combine (\dag) and $(\ddag)$:
+        \[
+            \begin{pmatrix}
+                2&2\\3&4
+            \end{pmatrix}\begin{pmatrix}
+                y_w&y_x\\z_w&z_x
+            \end{pmatrix}= -\begin{pmatrix}
+                2&2\\1&2
+            \end{pmatrix}
+        \]
+
+        Therefore,
+        \begin{align*}
+            \begin{pmatrix}
+                y_w&y_x\\z_w&z_x
+            \end{pmatrix}&=- \begin{pmatrix}
+                2&2\\3&4
+            \end{pmatrix}^{-1}\begin{pmatrix}
+                2&2\\1&2
+            \end{pmatrix}\\
+            &= \begin{pmatrix}
+                -3&-2\\2&1
+            \end{pmatrix}.
+        \end{align*}
+    \end{solution}
+
+    Here's another take:
+    \begin{solution}
+        Define
+        \[
+            \vf\begin{pmatrix}
+                w\\x
+            \end{pmatrix} = \begin{pmatrix}
+                w\\x\\y(w,x)\\z(w,x)
+            \end{pmatrix},\qquad
+            \vg\begin{pmatrix}w\\x\\y\\z\end{pmatrix} = \begin{pmatrix}
+                w^2 + x^2 + y^2 + z^2 - 4\\
+                w + 2x + 3y + 4z - 10
+            \end{pmatrix}
+        \]
+
+        \begin{align*}
+            D\vf\begin{pmatrix}
+                w\\x
+            \end{pmatrix}&= \begin{pmatrix}
+                1&0\\0&1\\y_w&y_x\\z_w&z_x
+            \end{pmatrix}\\
+            D\vg\begin{pmatrix}
+                w\\x\\y\\z
+            \end{pmatrix}&= \begin{pmatrix}
+                2w & 2x & 2y & 2z\\
+                1&2&3&4
+            \end{pmatrix}
+        \end{align*}
+
+        By the chain rule,
+        \begin{align*}
+            D(\vg\circ\vf)\begin{pmatrix}
+                1\\1
+            \end{pmatrix} &= D\vg\left(\vf\begin{pmatrix}
+                1\\1
+            \end{pmatrix}\right) D\vf\begin{pmatrix}
+                1\\1
+            \end{pmatrix}\\
+            &= D\vg\begin{pmatrix}
+                1\\1\\1\\1
+            \end{pmatrix}D\vf\begin{pmatrix}
+                1\\1
+            \end{pmatrix}\\
+            &= \begin{pmatrix}
+                2 & 2 & 2 & 2\\
+                1&2&3&4
+            \end{pmatrix}\begin{pmatrix}
+                1&0\\0&1\\y_w&y_x\\z_w&z_x
+            \end{pmatrix}\\
+            &= \begin{pmatrix}
+                2&2\\1&2
+            \end{pmatrix}\begin{pmatrix}
+                1&0\\0&1
+            \end{pmatrix} + \begin{pmatrix}
+                2&2\\3&4
+            \end{pmatrix}\begin{pmatrix}
+                y_w&y_x\\z_w&z_x
+            \end{pmatrix}\\
+            &=\begin{pmatrix}
+                2&2\\1&2
+            \end{pmatrix}+ \begin{pmatrix}
+                2&2\\3&4
+            \end{pmatrix}\begin{pmatrix}
+                y_w&y_x\\z_w&z_x
+            \end{pmatrix}
+        \end{align*}
+
+        Since $\vg=\vzero$ defines $y$ and $z$ implicitly as functions of $x$ and $y$,
+        \[
+            \vg\circ\vf = \vzero.
+        \]
+        Therefore,
+        \[
+            D(\vg\circ\vf)=\vzero.
+        \]
+        Therefore,
+        \[
+            \begin{pmatrix}
+                2&2\\1&2
+            \end{pmatrix}+ \begin{pmatrix}
+                2&2\\3&4
+            \end{pmatrix}\begin{pmatrix}
+                y_w&y_x\\z_w&z_x
+            \end{pmatrix}=\begin{pmatrix}
+                0&0\\0&0
+            \end{pmatrix}
+        \]
+        Rearranging, we get
+        \[
+            \begin{pmatrix}
+                2&2\\3&4
+            \end{pmatrix}\begin{pmatrix}
+                y_w&y_x\\z_w&z_x
+            \end{pmatrix}= -\begin{pmatrix}
+                2&2\\1&2
+            \end{pmatrix}
+        \]
+        Solving, we get
+        \begin{align*}
+            \begin{pmatrix}
+                y_w&y_x\\z_w&z_x
+            \end{pmatrix}&=- \begin{pmatrix}
+                2&2\\3&4
+            \end{pmatrix}^{-1}\begin{pmatrix}
+                2&2\\1&2
+            \end{pmatrix}\\
+            &= \begin{pmatrix}
+                -3&-2\\2&1
+            \end{pmatrix}.
+        \end{align*}
+    \end{solution}
+    
+    \question
+    Suppose
+    \[
+    z = z(x,y),\qquad x = e^s\cos t,\qquad y = e^s\sin t.
+    \]
+    Show that
+    \[
+        z_{ss} + z_{tt} = (x^2+y^2)(z_{xx} + z_{yy})
+    \]
+
+    \begin{solution}
+        Note that
+        \[
+            x_s = x,\qquad x_t = -y,\qquad y_s = y,\qquad y_t = x.
+        \]
+        Using these relations, together with the chain rule, we get
+        \begin{align*}
+            z_s &= z_xx_s + z_yy_s\\
+            &= xz_x + yz_y\\
+            z_{ss} &= x_sz_x + x(z_{xx}x_s + z_{xy}y_s) + y_s z_y + y(z_{xy}x_s + z_{yy}y_s)\\
+            &= xz_x + yz_y + x^2z_{xx} + y^2z_{yy} + 2xyz_{xy}
+            \intertext{and}
+            z_t &= z_xx_t + z_yy_t\\
+            &= -yz_x + xz_y\\
+            z_{tt} &= -y_tz_x - y(z_{xx}x_t + z_{xy}y_t)
+            + x_tz_y + x(z_{yx}x_t + z_{yy}y_t)\\
+            &= -xz_x - yz_y + y^2z_{xx} + x^2z_{yy} -2xyz_{xy}.
+        \end{align*}
+        Therefore,
+        \[
+            z_{ss} + z_{tt} = (x^2+y^2)(z_{xx} + z_{yy}).
+        \]
+    \end{solution}
+
+    \question
+    \begin{parts} 
+        \part Suppose $u,v:\RR^2\to\RR$ satisfy
+        \[
+            u_x = v_y,\qquad u_y=-v_x\tag{$\dag$}
+        \]
+        Show that $u$ and $v$ are both harmonic, i.e., that they satisfy Laplace's equation:
+        \[
+            u_{xx} + u_{yy} = 0,\qquad v_{xx} + v_{yy} = 0
+        \]
+
+        \begin{solution}
+            We show that $u$ is harmonic:
+            \begin{align*}
+                u_{xx} &= (u_{x})_x = (v_{y})_x = v_{xy}\\
+                u_{yy} &= (u_y)_y = (-v_x)_y = -v_{xy}\\
+                \intertext{Therefore,}
+                u_{xx} + u_{yy} &= 0.
+            \end{align*}
+            The proof that $v$ is harmonic is similar.
+        \end{solution}
+
+        \part Suppose $f:\RR^2\to\RR$ is a harmonic function.
+        Show that if $u$ and $v$ satisty $(\dag)$, then
+        \[
+            g(x,y) = f(u(x,y),v(x,y))
+        \]
+        is harmonic.
+
+        \begin{solution}
+            Using by the chain rule and relations $(*)$,
+            \begin{align*}
+                g_x &= f_u u_x + f_v v_x\\
+                &= f_u u_x - f_v u_y\\
+                g_{xx} &= (f_{uu}u_x + f_{uv}v_x)u_x + f_u u_{xx}
+                - (f_{vu}u_x + f_{vv}v_x)u_y - f_v u_{yx}\\
+                &= (f_{uu}u_x - f_{uv}u_y)u_x + f_u u_{xx}
+                - (f_{vu}u_x - f_{vv}u_y)u_y - f_v u_{yx}\\
+                &= f_{uu}u_x^2 + f_{vv}u_y^2 -2f_{uv}u_xu_y + f_u u_{xx} - f_v u_{xy}\\
+                g_y &= f_u u_y + f_v v_y\\
+                &= f_u u_y + f_v u_x\\
+                g_{yy} &= (f_{uu} u_y + f_{uv} v_y)u_y + f_u u_{yy}
+                + (f_{vu}u_y + f_{vv}v_y)v_y + f_v u_{xy}\\
+                &= (f_{uu} u_y + f_{uv} u_x)u_y + f_u u_{yy}
+                + (f_{vu}u_y + f_{vv}u_x)u_x + f_v u_{xy}\\
+                &= f_{uu}u_y^2 + f_{vv}u_x^2 + 2f_{uv}u_xu_y + f_u u_{yy} + f_v u_{xy}\\
+                g_{xx} + g_{yy} &= (f_{uu} + f_{vv})(u_x^2 + u_y^2) + f_u(u_{xx} + u_{yy})
+            \end{align*}
+            Since $f$ is harmonic by hypothesis, 
+            \[
+                f_{uu} + f_{vv} = 0.
+            \]
+            Since $u$ is harmonic by (a),
+            \[
+                u_{xx} + u_{yy} = 0.
+            \]
+            Therefore,
+            \[
+                g_{xx} + g_{yy} = 0,
+            \]
+            i.e., $g$ is harmonic.
+        \end{solution}
+    \end{parts}
+    
+\end{questions}
+
+
+\end{document}
